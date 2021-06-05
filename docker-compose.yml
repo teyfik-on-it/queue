@@ -12,3 +12,13 @@ services:
     command: npm run start:dev
     env_file:
       - .env
+    depends_on:
+      - redis
+  redis:
+    image: redis:5.0-alpine
+    networks:
+      - webnet
+    ports:
+      - 6379:${STORE_PORT}
+networks:
+  webnet:
