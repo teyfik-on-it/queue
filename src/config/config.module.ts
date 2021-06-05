@@ -5,11 +5,14 @@ import Joi from 'joi';
 @Module({
   imports: [
     NestConfigModule.forRoot({
+      envFilePath: ['.env', '.env.local'],
       validationSchema: Joi.object({
         NODE_ENV: Joi.string()
           .valid('development', 'production')
           .default('development'),
-        PORT: Joi.number().greater(1024).less(65536).required(),
+        PORT: Joi.number().port().required(),
+        STORE_HOST: Joi.string().hostname().required(),
+        STORE_PORT: Joi.number().port().required(),
       }),
     }),
   ],
